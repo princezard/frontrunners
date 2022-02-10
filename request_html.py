@@ -2,7 +2,8 @@ import requests
 from bs4 import BeautifulSoup as bs
 
 # Load the webpage content
-r = requests.get("https://keithgalli.github.io/web-scraping/example.html")
+url = 'https://keithgalli.github.io/web-scraping/'
+r = requests.get(url+"example.html")
 
 # Convert to a beautiful soup object
 soup = bs(r.content)
@@ -80,15 +81,42 @@ paragraphs[0]["id"]
 print(soup.body.prettify())
 
 # Know the terms: Parent,Sibling,Child
+body = soup.body.find("div")
+body
+body.find_next_siblings()
 
+# Practices
+url = 'https://keithgalli.github.io/web-scraping/'
+r = requests.get(url+"webpage.html")
 
+webpage = bs(r.content)
 
+# Grab all of the social links from the webpage in 3 diferent ways
 
+social_media = webpage.find_all('li',attrs = {'class':'social'})
+social_media
 
+for sm in social_media:
+    print(sm.get_text())
+    
+links = webpage.select("li.social a")
+actual_link = [link['href'] for link in links]
 
+# Read tables into dataframe
+import pandas as pd
+table = webpage.find('table',attrs = {'class':'hockey-stats'})
+actual_table = pd.read_html(str(table))[0]
 
+# Grab all fun fact that contain the word "is"
+fun_fact = webpage.find('ul',attrs = {'class':'fun-facts'})
+is_fun_fact = fun_fact.find_all(string = re.compile('is'))
+is_fun_fact
 
+# Download images from the webpage
+images = webpage.select('div.row div.column img')
+images_url = [image['src'] for image in images]
 
-
-
-
+from PIL import Image
+for i in range(len(images_url)):
+    img = Image.open(requests.get(url+images_url[i],stream=True).raw)
+    img.save(f"pic_{i+1}.jpg")
