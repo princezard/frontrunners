@@ -8,5 +8,7 @@ The second file is to used to knowledge to try out something by retrieving all D
 The third file __selenium_practice.py__ is used to download images from the official premier league website which I attempt to used it to classify the pictures according to their 20 teams.  
 __premier_league_data.py__ is used to extract data into dataframe.
 
-## Week 4, Week 5
+## Week 4, Week 5, 
 Article titles has been extracted and __topic_modeling.py__ has been added to classify the topic within the titles but there are plenty of room for an improvement.
+## Week 6, Week 7, Week 8  
+__frontrunner_topic_model.ipynb__ is added. The notebook shows how to find a number of appropriate topic using *coherence*. The number of topic with the most coherence is 11.
